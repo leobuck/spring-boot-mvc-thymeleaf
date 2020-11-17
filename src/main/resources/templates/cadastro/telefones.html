@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cadastro de Telefone</title>
+	<!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection" />
+    
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<div class="container">
+		<h3>Cadastro de Telefone</h3>
+		 
+		 <div th:each="p : ${pessoa}">
+		 	<div class="row">
+		 		<p>Id: <span th:text="${p.id}"></span></p>
+		 		<p>Nome: <span th:text="${p.nome}"></span></p>
+		 		<p>Sobrenome: <span th:text="${p.sobrenome}"></span></p>
+		 		<p>Idade: <span th:text="${p.idade}"></span></p>
+		 	</div>
+		 </div>
+		 
+		 
+		 <div class="row">
+			<form th:action="@{/salvartelefone/{idpessoa}(idpessoa=${pessoa.id})}" method="post" class="col s12" id="formsalvartelefone" onsubmit="return validarCampos() ? true : false;">
+				
+				<div class="row">
+					<div class="input-field col s12">
+						<label>Id:</label>
+						<input name="id" readonly="readonly">
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="input-field col s6">
+						<label for="numero">Número:</label>
+						<input id="numero" name="numero" type="text">
+					</div>
+					<div class="input-field col s6">
+						<label for="tipo">Tipo:</label>
+						<input id="tipo" name="tipo" type="text">
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="input-field col s6">
+						<input type="button" value="Novo" class="btn" onclick="document.getElementById('formsalvartelefone').reset();">
+						<input type="submit" value="Salvar" class="btn">
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		<table class="highlight responsive-table">
+			<tr>
+				<td>Id</td>
+				<td>Número</td>
+				<td>Tipo</td>
+				<td>Remover</td>
+			</tr>
+			<tr th:each="fone : ${telefones}">
+				<td th:text="${fone.id}"></td>
+				<td th:text="${fone.numero}"></td>
+				<td th:text="${fone.tipo}"></td>
+				<td>
+					<a th:href="@{/removertelefone/{idtelefone}(idtelefone=${fone.id})}" class="btn"><i class="material-icons left">delete</i>Remover</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<!--JavaScript at end of body for optimized loading-->
+	<script type="text/javascript" src="/js/materialize.min.js"></script>
+	
+	<script type="text/javascript">
+		function validarCampos() {
+			numero = document.getElementById('numero').value;
+			tipo = document.getElementById('tipo').value;
+			
+			if (numero === '') {
+				alert('Número deve ser informado!');
+				return false;
+			}
+			
+			if (tipo === '') {
+				alert('Tipo deve ser informado!');
+				return false;
+			}
+			
+			return true;
+		}
+	</script>
+</body>
+</html>
