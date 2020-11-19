@@ -1,5 +1,6 @@
 package com.curso.springboot.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,10 +12,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.curso.springboot.security.service.UserDetailsServiceImp;
+
 @Configuration
 @EnableWebSecurity
 public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 
+	@Autowired
+	private UserDetailsServiceImp userDetailsServiceImp;
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -28,11 +34,14 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		auth.inMemoryAuthentication().passwordEncoder(encoder)
-			.withUser("admin")
-			.password(encoder.encode("123"))
-			.roles("ADMIN");
+		auth.userDetailsService(userDetailsServiceImp)
+			.passwordEncoder(new BCryptPasswordEncoder());
+		
+//		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//		auth.inMemoryAuthentication().passwordEncoder(encoder)
+//			.withUser("admin")
+//			.password(encoder.encode("123"))
+//			.roles("ADMIN");
 	}
 	
 	@Override
