@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.curso.springboot.security.service.UserDetailsServiceImp;
@@ -27,9 +26,13 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 			.csrf().disable()
 			.authorizeRequests()
 			.antMatchers(HttpMethod.GET, "/").permitAll()
+			.antMatchers(HttpMethod.GET, "/cadastropessoa").hasAnyRole("USER")
 			.anyRequest().authenticated()
 			.and().formLogin().permitAll()
-			.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+			.loginPage("/login")
+			.defaultSuccessUrl("/cadastropessoa")
+			.failureUrl("/login?error=true")
+			.and().logout().logoutSuccessUrl("/login").logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}
 	
 	@Override
