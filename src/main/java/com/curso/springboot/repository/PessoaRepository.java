@@ -13,4 +13,7 @@ public interface PessoaRepository extends CrudRepository<Pessoa, Long> {
 
 	@Query("SELECT p FROM Pessoa p WHERE p.nome LIKE %?1%")
 	List<Pessoa> findByName(String nome);
+	
+	@Query("SELECT p FROM Pessoa p WHERE p.nome LIKE %?1% AND p.sexo = ?2")
+	List<Pessoa> findByNameAndSexo(String nome, String sexo);
 }

@@ -99,9 +99,18 @@ public class PessoaController {
 	}
 	
 	@PostMapping("**/pesquisarpessoa")
-	public ModelAndView pesquisar(@RequestParam("nomepesquisa") String nomepesquisa) {
+	public ModelAndView pesquisar(@RequestParam("nomepesquisa") String nomepesquisa, @RequestParam("sexopesquisa") String sexopesquisa) {
+		
+		List<Pessoa> pessoas = new ArrayList<>();
+		
+		if (sexopesquisa != null && !sexopesquisa.isEmpty()) {
+			pessoas = pessoaRepository.findByNameAndSexo(nomepesquisa, sexopesquisa);
+		} else {
+			pessoas = pessoaRepository.findByName(nomepesquisa);
+		}
+		
 		ModelAndView mv = new ModelAndView("cadastro/cadastropessoa");
-		mv.addObject("pessoas", pessoaRepository.findByName(nomepesquisa));
+		mv.addObject("pessoas", pessoas);
 		mv.addObject("pessoa", new Pessoa());
 		return mv;
 	}
