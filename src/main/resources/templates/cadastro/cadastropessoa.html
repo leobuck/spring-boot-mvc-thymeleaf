@@ -96,7 +96,7 @@
 			<legend>Pesquisa</legend>
 			
 			<div class="row">
-				<form action="pesquisarpessoa" method="post" class="col s12">
+				<form action="pesquisarpessoa" method="post" class="col s12" id="formpesquisarpessoa">
 					<div class="row">
 						<div class="input-field col s6">
 							<label>Pesquisar por nome:</label>
@@ -112,8 +112,9 @@
 						</div>
 					</div>
 					<div class="row">
-						<button type="submit" class="btn">Pesquisar</button>
+						<button type="submit" class="btn" onclick="document.getElementById('formpesquisarpessoa').method='POST'">Pesquisar</button>
 						<a href="/listarpessoas" class="btn"><i class="material-icons left">list</i>Listar Pessoas</a>
+						<button type="submit" class="btn" onclick="document.getElementById('formpesquisarpessoa').method='GET'">Exportar</button>
 					</div>			
 				</form>
 			</div>
