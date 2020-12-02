@@ -85,6 +85,21 @@
 				
 				<div class="row">
 					<div class="input-field col s6">
+						<select id="profissao" name="profissao" th:field="*{profissao}">
+							<option th:each="p : ${profissoes}" th:value="${p.id}" th:text="${p.nome}">
+						</select>
+						<label>Profissão:</label>
+					</div>
+					<div class="input-field col s6">
+						<select id="cargo" name="cargo" th:field="*{cargo}">
+							<option th:each="c : ${T(com.curso.springboot.model.Cargo).values()}" th:value="${c}" th:text="${c.nome}">
+						</select>
+						<label>Cargo:</label>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="input-field col s6">
 						<input type="button" value="Novo" class="btn" onclick="document.getElementById('formsalvarpessoa').reset();">
 						<input type="submit" value="Salvar" class="btn">
 					</div>

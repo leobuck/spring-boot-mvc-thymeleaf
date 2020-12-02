@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.curso.springboot.model.Pessoa;
 import com.curso.springboot.model.Telefone;
 import com.curso.springboot.repository.PessoaRepository;
+import com.curso.springboot.repository.ProfissaoRepository;
 import com.curso.springboot.repository.TelefoneRepository;
 import com.curso.springboot.util.ReportUtil;
 
@@ -36,6 +37,9 @@ public class PessoaController {
 	private TelefoneRepository telefoneRepository;
 	
 	@Autowired
+	private ProfissaoRepository profissaoRepository;
+	
+	@Autowired
 	private ReportUtil reportUtil;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/cadastropessoa")
@@ -44,6 +48,7 @@ public class PessoaController {
 		Iterable<Pessoa> pessoas = pessoaRepository.findAll();
 		mv.addObject("pessoas", pessoas);
 		mv.addObject("pessoa", new Pessoa());
+		mv.addObject("profissoes", profissaoRepository.findAll());
 		return mv;
 	}
 	
@@ -73,6 +78,7 @@ public class PessoaController {
 		Iterable<Pessoa> pessoas = pessoaRepository.findAll();
 		mv.addObject("pessoas", pessoas);
 		mv.addObject("pessoa", new Pessoa());
+		mv.addObject("profissoes", profissaoRepository.findAll());
 		return mv;
 	}
 	
@@ -82,6 +88,7 @@ public class PessoaController {
 		Iterable<Pessoa> pessoas = pessoaRepository.findAll();
 		mv.addObject("pessoas", pessoas);
 		mv.addObject("pessoa", new Pessoa());
+		mv.addObject("profissoes", profissaoRepository.findAll());
 		return mv;
 	}
 	
@@ -90,6 +97,7 @@ public class PessoaController {
 		ModelAndView mv = new ModelAndView("cadastro/cadastropessoa");
 		Optional<Pessoa> pessoa = pessoaRepository.findById(idpessoa);
 		mv.addObject("pessoa", pessoa.get());
+		mv.addObject("profissoes", profissaoRepository.findAll());
 		return mv;
 	}
 	
@@ -101,6 +109,7 @@ public class PessoaController {
 		Iterable<Pessoa> pessoas = pessoaRepository.findAll();
 		mv.addObject("pessoas", pessoas);
 		mv.addObject("pessoa", new Pessoa());
+		mv.addObject("profissoes", profissaoRepository.findAll());
 		return mv;
 	}
 	
@@ -118,6 +127,7 @@ public class PessoaController {
 		ModelAndView mv = new ModelAndView("cadastro/cadastropessoa");
 		mv.addObject("pessoas", pessoas);
 		mv.addObject("pessoa", new Pessoa());
+		mv.addObject("profissoes", profissaoRepository.findAll());
 		return mv;
 	}
 	
